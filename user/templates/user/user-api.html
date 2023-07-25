@@ -1,0 +1,27 @@
+{% extends 'user/base.html' %}
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/api.css' %}">
+
+
+<div class="row justify-content-center text-center" style="min-height: calc(100vh - 80px); padding-top:65px;">
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            <legend class="mb-2">Brokerage API Key</legend>
+            <label> API Key: </label>
+            <input type="text" class="form-control" name="api-key" value="{{ api_key }}"
+                   placeholder="Enter brokerage api key">
+            <br>
+            <label> Secret Key: </label>
+            <input type="text" class="form-control" name="secret-key" value="{{ secret_key }}"
+                   placeholder="Enter brokerage secret key">
+            <small class="form-text text-muted">We'll never share your api key and secret key with anyone else.</small>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
+{% endblock %}

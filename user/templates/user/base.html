@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+          integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
+    <title> HODL </title>
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a href="/" class="navbar-brand">HODL</a>
+    {% if request.user.is_authenticated %}
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+                <a class="nav-link" href="/user/algorithms">Algorithms</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/data-analysis">Data Analysis</a>
+            </li>
+	    <li class="nav-item">
+                <a class="nav-link" href="/user/indicator-analysis">Indicator Analysis</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/recommendations">Recommendations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/user-api">My API</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/help">Help</a>
+            </li>
+        </ul>
+        <div class="dropdown">
+            <button class="btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                Hello {{user.username}}
+            </button>
+            <div class="dropdown-menu" style="min-width: 2rem;" aria-labelledby="dropdownMenuButton">
+                <a href="/user/logout" class="dropdown-item" role="button">Log Out</a>
+            </div>
+        </div>
+    </div>
+    {% else%}
+    <div id="navEle" , name="navEle" class="ml-auto">
+        {% block navEle %}
+        {% endblock %}
+    </div>
+    {%endif%}
+</nav>
+
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} {%if message.tags == 'error'%} alert-danger {%endif%} alert-dismissible fade show" style="margin-top: 65px"
+     role="alert">
+    {{message}}
+</div>
+{%endfor%}
+{%endif%}
+
+<div id="content" , name="content" , style="padding-left:20px; padding-right:20px; padding-top:20px">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<footer class="bg-light py-3">
+    <div class="container">
+        <p class="text-center m-0">&copy; <span id="year"></span> HODL. All rights reserved.</p>
+    </div>
+</footer>
+
+</body>
+<script>
+  var year = new Date().getFullYear();
+  document.getElementById("year").innerHTML = year;
+</script>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+</script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+</script>
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            $(".alert").fadeTo(500, 0, function () {
+                $(this).remove();
+            });
+        }, 6000);
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('a.nav-link').each(function () {
+            if ($(this).prop('href') + '/' == window.location.href) {
+                console.log('same url')
+                $(this).addClass('active');
+            }
+        });
+    });
+</script>
+</html>

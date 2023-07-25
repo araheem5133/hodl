@@ -1,0 +1,255 @@
+{% extends 'user/base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/analysis.css' %}">
+<h1>Stock Backtesting Analysis</h1>
+
+<form method="POST">
+  {% csrf_token %}
+
+  {% if e %}
+  <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    {{e}}
+  </div>
+  {% endif %}
+
+  <label for="start_date">Start Date:</label>
+  <input type="date" id="start_date" name="start_date" pattern="\d{2}/\d{2}/\d{4}" placeholder="MM/DD/YYYY">
+
+  <label for="end_date">End Date:</label>
+  <input type="date" id="end_date" name="end_date" pattern="\d{2}/\d{2}/\d{4}" placeholder="MM/DD/YYYY">
+
+  <label for="stock_symbol">Stock Symbol:</label>
+  <input type="text" id="stock_symbol" name="stock_symbol">
+
+  <label for="investment">Investment amount:</label>
+  <input type="number" id="investment" name="investment">
+
+  <label for="algorithm">Algorithm:</label>
+  <select id="algorithm" name="algorithm">
+    <option value="RSI">Relative Strength Indicator</option>
+    <option value="MA">Moving Average</option>
+    <option value="ATR">Average True Range</option>
+    <option value="FIB">MACD with Fibonacci Levels</option>
+    <option value="BB">Bollinger Bands</option>
+    <option value="ROC">Rate of Change</option>
+    <option value="ARN">Aroon</option>
+    <option value="STO">Stochastic Oscillator</option>
+    <option value="TSI">True Strength Index</option>
+    <option value="UO">Ultimate Oscillator</option>
+    <option value="EMV">Ease of Movement</option>
+  </select>
+
+  <div id="emv-fields" style="display:none;">
+    <label for="emv_w1">EMV Window 1:</label>
+    <input type="number" id="emv_w1" name="emv_w1">
+
+    <label for="emv_w2">EMV Window 2:</label>
+    <input type="number" id="emv_w2" name="emv_w2">
+
+    <label for="emv_over">EMV Over:</label>
+    <input type="number" id="emv_over" name="emv_over">
+
+    <label for="emv_under">EMV Under:</label>
+    <input type="number" id="emv_under" name="emv_under">
+  </div>
+
+  <div id="uo-fields" style="display:none;">
+    <label for="uo_days">UO Days:</label>
+    <input type="number" id="uo_days" name="uo_days">
+
+    <label for="uo_over">UO Over:</label>
+    <input type="number" id="uo_over" name="uo_over">
+
+    <label for="uo_under">UO Under:</label>
+    <input type="number" id="uo_under" name="uo_under">
+  </div>
+
+  <div id="tsi-fields" style="display:none;">
+    <label for="tsi_w1">TSI Window 1:</label>
+    <input type="number" id="tsi_w1" name="tsi_w1">
+
+    <label for="tsi_w2">TSI Window 2:</label>
+    <input type="number" id="tsi_w2" name="tsi_w2">
+
+    <label for="tsi_over">TSI Over:</label>
+    <input type="number" id="tsi_over" name="tsi_over">
+
+    <label for="tsi_under">TSI Under:</label>
+    <input type="number" id="tsi_under" name="tsi_under">
+  </div>
+
+  <div id="sto-fields" style="display:none;">
+    <label for="sto_days">STO Days:</label>
+    <input type="number" id="sto_days" name="sto_days">
+
+    <label for="sto_over">STO Over:</label>
+    <input type="number" id="sto_over" name="sto_over">
+
+    <label for="sto_under">STO Under:</label>
+    <input type="number" id="sto_under" name="sto_under">
+  </div>
+
+  <div id="arn-fields" style="display:none;">
+    <label for="arn_days">Aroon Days:</label>
+    <input type="number" id="arn_days" name="arn_days">
+  </div>
+
+  <div id="roc-fields" style="display:none;">
+    <label for="roc_days">ROC Days:</label>
+    <input type="number" id="roc_days" name="roc_days">
+
+    <label for="roc_over">ROC Over:</label>
+    <input type="number" id="roc_over" name="roc_over">
+
+    <label for="roc_under">ROC Under:</label>
+    <input type="number" id="roc_under" name="roc_under">
+  </div>
+
+  <div id="rsi-fields" style="display:block;">
+    <label for="rsi_days">RSI Days:</label>
+    <input type="number" id="rsi_days" name="rsi_days">
+
+    <label for="rsi_over">RSI Over:</label>
+    <input type="number" id="rsi_over" name="rsi_over">
+
+    <label for="rsi_under">RSI Under:</label>
+    <input type="number" id="rsi_under" name="rsi_under">
+  </div>
+
+  <div id="ma-fields" style="display:none;">
+    <label for="ma_short">Ma Short:</label>
+    <input type="number" id="ma_short" name="ma_short">
+
+    <label for="ma_long">Ma Long:</label>
+    <input type="number" id="ma_long" name="ma_long">
+  </div>
+
+  <div id="atr-fields" style="display:none;">
+    <label for="atr_short">ATR Short:</label>
+    <input type="number" id="atr_short" name="atr_short">
+
+    <label for="atr_long">ATR Long:</label>
+    <input type="number" id="atr_long" name="atr_long">
+  </div>
+
+  <div id="fib-fields" style="display:none;">
+    <label for="fib_short">FIB Short:</label>
+    <input type="number" id="fib_short" name="fib_short">
+
+    <label for="fib_long">FIB Long:</label>
+    <input type="number" id="fib_long" name="fib_long">
+  </div>
+
+  <div id="bb-fields" style="display:none;">
+    <label for="bb_ma_days">BB MA Days:</label>
+    <input type="number" id="bb_ma_days" name="bb_ma_days">
+
+    <label for="bb_num_std">BB Num Std:</label>
+    <input type="number" id="bb_num_std" name="bb_num_std">
+  </div>
+
+<button type="submit">Analyze</button>
+
+</form>
+<script>
+    const algorithmSelect = document.getElementById('algorithm');
+    const rsiFields = document.getElementById('rsi-fields');
+    const maFields = document.getElementById('ma-fields');
+    const atrFields = document.getElementById('atr-fields');
+    const fibFields = document.getElementById('fib-fields');
+    const bbFields = document.getElementById('bb-fields');
+    const rocFields = document.getElementById('roc-fields');
+    const stoFields = document.getElementById('sto-fields');
+    const tsiFields = document.getElementById('tsi-fields');
+    const uoFields = document.getElementById('uo-fields');
+    const emvFields = document.getElementById('emv-fields');
+    const arnFields = document.getElementById('arn-fields');
+
+    algorithmSelect.addEventListener('change', () => {
+      const selectedAlgorithm = algorithmSelect.value;
+
+      rsiFields.style.display = 'block';
+      maFields.style.display = 'none';
+      atrFields.style.display = 'none';
+      fibFields.style.display = 'none';
+      bbFields.style.display = 'none';
+      rocFields.style.display = 'none';
+      stoFields.style.display = 'none';
+      tsiFields.style.display = 'none';
+      uoFields.style.display = 'none';
+      emvFields.style.display = 'none';
+      arnFields.style.display = 'none';
+
+      if (selectedAlgorithm === 'RSI') {
+        rsiFields.style.display = 'block';
+      } else if (selectedAlgorithm === 'MA') {
+        maFields.style.display = 'block';
+	rsiFields.style.display = 'none';
+      } else if (selectedAlgorithm === 'ATR') {
+        atrFields.style.display = 'block';
+	rsiFields.style.display = 'none';
+      } else if (selectedAlgorithm === 'FIB') {
+        fibFields.style.display = 'block';
+	rsiFields.style.display = 'none';
+      } else if (selectedAlgorithm === 'BB') {
+        bbFields.style.display = 'block';
+	rsiFields.style.display = 'none';
+      } else if (selectedAlgorithm === 'ROC') {
+        rocFields.style.display = 'block';
+	rsiFields.style.display = 'none';
+      } else if (selectedAlgorithm === 'STO') {
+        stoFields.style.display = 'block';
+	rsiFields.style.display = 'none';
+      } else if (selectedAlgorithm === 'TSI') {
+        tsiFields.style.display = 'block';
+	rsiFields.style.display = 'none';
+      } else if (selectedAlgorithm === 'UO') {
+        uoFields.style.display = 'block';
+	rsiFields.style.display = 'none';
+      } else if (selectedAlgorithm === 'EMV') {
+        emvFields.style.display = 'block';
+	rsiFields.style.display = 'none';
+      } else if (selectedAlgorithm === 'ARN') {
+        arnFields.style.display = 'block';
+	rsiFields.style.display = 'none';
+      }
+    });
+  </script>
+</form>
+
+{% if p %}
+{% autoescape off %}
+  {{ p }}
+{% endautoescape %}
+{% endif %}
+
+<div class="container" style="height: 500px; overflow-y:auto;">
+  {% if d %}       
+  <table class="table table-dark table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Investment</th>
+        <th>Buy/Sell/Hold</th>
+        <th>Current Position</th>
+        <th>Shares</th>
+      </tr>
+    </thead>
+    <tbody> 
+    {% for i in d %}
+      <tr>
+        <td>{{i.date}}</td>
+        <td>{{i.investment}}</td>
+        <td>{{i.buy_sell_hold}}</td>
+        <td>{{i.position}}</td>
+        <td>{{i.shares}}</td>
+      </tr>
+    {% endfor %}
+    {% endif %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
