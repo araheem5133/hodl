@@ -30,12 +30,12 @@ Creating a HODL account requires an Alpaca security key and an email. You can ac
 ### HODL comes with a fully responsive dashboard that tracks the overall value of your account as well as any positions you currently have.
 Tracks your Alpaca account in real time, along with showing the user any percent change for the day as well as any currently open positions that the user may have.
 
-![Dashboard](https://github.com/araheem5133/hodl/assets/140485628/f942310c-80f0-402b-9586-a9855f7752b6)
+![Dashboard](https://github.com/araheem5133/hodl/assets/140485628/200d52aa-444a-4e7e-8258-0c100349a0b1)
 
 #### Algorithms and full trading history can also be viewed through the application, along with a watch list that follows a stock price.
 Trading history takes into note every single buy or sell trigger that was implement by the algorithm so the user can have a strict knowledge on how many sells or buys their algorithm does in a week. Watch list stocks can follow anything currently supported by the Alpaca stock API
 
-![Dashboard 2](https://github.com/araheem5133/hodl/assets/140485628/2db74dcb-8611-4b5a-9a4b-88be3f6cb962)
+![Dashboard 2](https://github.com/araheem5133/hodl/assets/140485628/d1bab064-526c-4e74-9d32-fde8407b7b3a)
 
 ### Preset strategies can also be enabled through the application for those newer to trading or just experimenting.
 Strategies currently provided for preset are the following:
@@ -45,17 +45,19 @@ Strategies currently provided for preset are the following:
 * Bollinger Bands
 * MACD with Fib. Levels
 
-![Algorithms](https://github.com/araheem5133/hodl/assets/140485628/9fd5a76e-3c84-4084-8b6c-5b2e3c7d8ee5)
+![Algorithms](https://github.com/araheem5133/hodl/assets/140485628/be431201-ffd5-4875-93b2-5485a1cccd09)
 
 ### Built-in backtesting module that allows a user to test a custom strategy over up to seven years of data before implementing it.
 Parameters are changed dynamically depending on the algorithm chosen, explanations of all of the provided algorithms are given on the HODL help page for any new users. The engine is strict with provided parameters and will check them prior to use in order to prevent error.
 
-![Backtesting 1](https://github.com/araheem5133/hodl/assets/140485628/20273112-8e65-43f0-b98e-fd95ec7c4059)
-![Backtesting 2](https://github.com/araheem5133/hodl/assets/140485628/5f28ef3d-dda0-44bd-bed4-1823046ab43e)
+![Backtesting 1](https://github.com/araheem5133/hodl/assets/140485628/9ebccab4-ab6d-41e7-be2c-5f8565174903)
+![Backtesting 2](https://github.com/araheem5133/hodl/assets/140485628/67eedb8d-966b-4fde-8e5a-dcc531474934)
+
 
 ### Indicator analysis is also provided for a more in-depth look on buy and sell triggers.
-![Indicator 1](https://github.com/araheem5133/hodl/assets/140485628/3998f55c-f2bf-4822-b0c9-dda7c1e29add)
-![Indicator 2](https://github.com/araheem5133/hodl/assets/140485628/259c422d-f916-41f1-b615-e027548f0397)
-![Indicator 3](https://github.com/araheem5133/hodl/assets/140485628/012e3be6-a82f-41a8-b690-667a0e90e0e3)
+![Indicator Analysis 1](https://github.com/araheem5133/hodl/assets/140485628/c8764df3-e257-4666-ac7e-1f217aa0d481)
+![Indicator Analysis 2](https://github.com/araheem5133/hodl/assets/140485628/84e6348b-5e48-460b-8304-5a0b19971075)
+![Indicator Analysis 3](https://github.com/araheem5133/hodl/assets/140485628/1d811383-59f3-4357-8dd2-63bdd96a6ea7)
+
 
 More to come in the future!
